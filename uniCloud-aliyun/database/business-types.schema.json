@@ -1,0 +1,37 @@
+{
+	"bsonType": "object",
+	"required": ["name", "type", "user_id"],
+	"permission": {
+		"read": true,
+		"create": "auth.uid!=null"
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"name": {
+			"bsonType": "string",
+			"title": "账单类型名称",
+			"description": "账单类型名称"
+		},
+		"type": {
+			"bsonType": "number",
+			"description": "所属类型:1.支出 2.收入",
+			"enum": [{
+				"value": 1,
+				"text": "支出"
+			}, {
+				"value": 2,
+				"text": "收入"
+			}]
+		},
+		"user_id": {
+			"bsonType": "string",
+			"description": "用户ID,参考`user`表",
+			"forceDefaultValue": {
+				"$env": "uid"
+			},
+			"foreignKey": "user._id"
+		}
+	}
+}
