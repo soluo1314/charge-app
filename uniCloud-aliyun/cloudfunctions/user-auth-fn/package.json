@@ -9,5 +9,6 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"wx-common": "file:../common/wx-common"
 	}
 }
