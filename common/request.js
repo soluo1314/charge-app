@@ -3,7 +3,6 @@ let token = uni.getStorageSync('token');
 function call(option) {
 	return new Promise((resolve, reject) => {
 		if (!option.data) option.data = {};
-		if (token) option.data.token = token;
 		uni.showLoading({
 			mask: true
 		});
@@ -11,26 +10,26 @@ function call(option) {
 			name: option.name,
 			data: option.data,
 			success: (res) => {
-				console.log(res)
+				console.log('res',res)
 				uni.hideLoading();
 				if (res.result.code == 200) {
 					if (res.result.token) {
 						token = res.result.token;
 						uni.setStorageSync('token', res.result.token);
 					}
-					if (option.success) option.success(res.result.data);
+					if (option.success) option.success(res.result);
 					resolve(res.result);
 				} else if (res.result.code == 201) {
 					uni.showToast({
-						icon: 'none',
+						icon: 'fail',
 						title: res.result.msg
 					})
 					if (option.fail) option.fail(res);
 				} else if (res.result.code == -1) {
 					// uni.clearStorageSync();
 					uni.showToast({
-						icon: 'none',
-						title: token ? '请重新登录' : '请登录'
+						icon: 'fail',
+						title: "请重新登录"
 					})
 					setTimeout(() => {
 						uni.navigateTo({
@@ -40,7 +39,7 @@ function call(option) {
 				}else if (res.result.code == 100000) {
 					// uni.clearStorageSync();
 					uni.showToast({
-						icon: 'none',
+						icon: 'fail',
 						title: res.result.msg ? res.result.msg : '请重新登录'
 					})
 					setTimeout(() => {

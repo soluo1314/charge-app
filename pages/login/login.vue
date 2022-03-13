@@ -23,6 +23,9 @@
 	</view>
 </template>
 <script>
+	import {
+		mapMutations
+	} from 'vuex'
 	export default {
 		data() {
 			return {
@@ -56,6 +59,9 @@
 		},
 		onLoad() {},
 		methods: {
+			...mapMutations({
+				setUserInfo: 'user/login'
+			}),
 			setType(type) {
 				this.loginType = type;
 			},
@@ -89,17 +95,19 @@
 					success: (
 						result
 					) => {
-						if (!result) {
-							uni.showToast({
-								title: title + "成功",
-								icon: "success",
+						console.log(result);
+						this.setUserInfo(result)
+						uni.showToast({
+							title: title + "成功",
+							icon: "success",
+							duration: 2000
+						});
+						
+						setTimeout(()=>{
+							uni.switchTab({
+								url: '/pages/tabBar/home/index'
 							});
-						} else {
-							uni.showToast({
-								title: title + "失败",
-								icon: "fail",
-							});
-						}
+						},1000)
 					}
 				});
 			},

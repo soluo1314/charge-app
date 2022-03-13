@@ -1,5 +1,5 @@
 export default {
-	tabbar:'账套,统计,我的',
+	tabbar:'账单,统计,我的',
 	agreementsTitle:'用户服务协议,隐私政策',
 	common:{
 		wechatFriends: "微信好友",
