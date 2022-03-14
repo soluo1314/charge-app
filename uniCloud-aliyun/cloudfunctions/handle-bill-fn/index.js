@@ -7,7 +7,7 @@ exports.main = async (event, context) => {
 	console.log('event : ', event)
 	const {
 		date,
-		page,
+		// page,
 		page_size = 5,
 		type_id = 'all',
 		uniIdToken
@@ -15,7 +15,7 @@ exports.main = async (event, context) => {
 	let res = {
 		code: 200
 	}
-	if (!verifyToken(uniIdToken)) {
+	if (!uniIdToken||!verifyToken(uniIdToken)) {
 		res['code'] = -1
 		res['msg'] = '校验失败'
 		return res

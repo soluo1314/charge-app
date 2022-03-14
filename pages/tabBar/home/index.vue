@@ -9,12 +9,12 @@
 	<view class="uni-container">
 		<view class="header">
 			<view class="dataWrap">
-				<text class="expense">总支出：<b>¥ 8.88</b></text>
-				<text class="income">总收入：<b>¥ 8.88</b></text>
+				<text class="expense">总支出：<b>¥ 1154.76</b></text>
+				<text class="income">总收入：<b>¥ 889.48</b></text>
 			</view>
 			<view class="typeWrap">
 				<view class="left">
-					<text class="title">全部类型</text>
+					<text class="title" @click="togglePopShow()">全部类型</text>
 					<uni-icons type="bottom" color="#fff"></uni-icons>
 				</view>
 				<view class="right">
@@ -84,28 +84,29 @@
 		<w-picker ref="date" :visible.sync="visible" mode="date" startYear="2017" endYear="2099" :value="single"
 			fields="month" @confirm="onConfirm($event,'date')" @cancel="onCancel" :disabled-after="false">
 		</w-picker>
+		<PopType ref='Pop' :show.sync='PopShow'  @onSelect='onSelect'></PopType>
 	</view>
 </template>
 <script>
 	import wPicker from "../../../components/w-picker/w-picker.vue";
+	import PopType from '../../../components/PopType.vue'
 	export default {
 		components: {
-			wPicker
+			wPicker,
+			PopType
 		},
 		data() {
 			return {
 				single: "2022-03",
 				visible: false,
-				bills: []
+				bills: [],
+				PopShow:false
 			}
 		},
 		onLoad() {
-
-		},
-		onReady() {
-			console.log(this.$store)
 			this.getBillList()
 		},
+		onReady() {},
 		methods: {
 			onConfirm(e) {
 				this.single = e.value;
@@ -132,6 +133,12 @@
 						this.bills = res.result
 					}
 				});
+			},
+			togglePopShow(){
+				this.PopShow=true
+			},
+			onSelect(item){
+				console.log(item);
 			}
 		}
 	}

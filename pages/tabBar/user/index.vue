@@ -10,11 +10,11 @@
 		<view class="head">
 			<view class="info">
 				<text class="span">昵称: {{userInfo.username}}</text>
-				<text class="span">
+				<view class="span">
 					<image src="//s.yezgea02.com/1615973630132/geqian.png" mode=""
 						:style="{width:'60rpx',height:'60rpx',verticalAlign: '-20rpx'}" alt=''></image>
 					<b>{{userInfo.signature || '暂无内容'}}</b>
-				</text>
+				</view>
 			</view>
 			<image class="avatar" :src="userInfo.avatar" mode="" alt=''
 				:style="{width:'120rpx',height:'120rpx',borderRadius: 8}">
