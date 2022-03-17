@@ -86,11 +86,7 @@
 	}
 </script>
 
-<style lang='less' scoped>
-	* {
-		box-sizing: border-box;
-	}
-
+<style lang='scss' scoped>
 	.uni-popup {
 		z-index: 1001;
 	}
@@ -126,7 +122,7 @@
 			.all {
 				display: inline-block;
 				padding: 24rpx 40rpx;
-				font-size: 32rpx;
+				font-size: 28rpx;
 				color: #000000e6;
 				background-color: #fff;
 			}
@@ -148,7 +144,7 @@
 					padding: 24rpx 0;
 					margin-bottom: 20rpx;
 					background-color: #fff;
-					font-size: 32rpx;
+					font-size: 28rpx;
 				}
 			}
 

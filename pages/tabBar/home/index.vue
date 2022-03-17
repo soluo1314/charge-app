@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: lz
  * @Date: 2022-02-25 22:59:47
- * @LastEditTime: 2022-02-25 22:59:47
+ * @LastEditTime: 2022-03-17 22:43:28
  * @LastEditors: lz
 -->
 <template>
@@ -19,7 +19,7 @@
 				</view>
 				<view class="right">
 					<view class="example-body" @click="getTime()">
-						<text class="time">{{single}}</text>
+						<text class="time">{{ single }}</text>
 						<uni-icons type="bottom" color="#fff"></uni-icons>
 						<!-- <uni-datetime-picker type="date" :value="single" start="2021-01" end="2025-06" @change="change"
 							:border='false'>
@@ -31,20 +31,20 @@
 			</view>
 		</view>
 		<view class="contentWrap">
-			<uni-card is-full :border='false' margin='false' :padding='"false"' v-for="item in bills"
-				:key='item.type_id'>
+			<uni-card is-full :border="false" margin="false" :padding="'false'" v-for="item in bills"
+				:key="item.type_id">
 				<view slot="title" class="card-title">
 					<view class="card-title-item left">
-						<uni-dateformat :date="item.date" format='yyyy-MM-dd'></uni-dateformat>
+						<uni-dateformat :date="item.date" format="yyyy-MM-dd"></uni-dateformat>
 					</view>
 					<view class="card-title-item">
 						<view class="card-title-item-price">
-							<image src="../../../static/zhi@2x.png" mode="" alt='支'></image>
-							<text>¥ {{item.amount}}</text>
+							<image src="../../../static/zhi@2x.png" mode="" alt="支"></image>
+							<text>¥ {{ item.amount }}</text>
 						</view>
 						<view class="card-title-item-price">
-							<image src="../../../static/shou@2x.png" mode="" alt='收'></image>
-							<text>¥ {{item.amount}}</text>
+							<image src="../../../static/shou@2x.png" mode="" alt="收"></image>
+							<text>¥ {{ item.amount }}</text>
 						</view>
 					</view>
 				</view>
@@ -52,15 +52,11 @@
 					<view class="card-body-top">
 						<view class="decs">
 							<uni-icons type="wallet" size="24" color="#007fff"></uni-icons>
-							<text>{{item.type}}</text>
+							<text>{{ item.type }}</text>
 						</view>
-						<view class="price">
-							-25.94
-						</view>
+						<view class="price"> -25.94 </view>
 					</view>
-					<view class="card-body-date">
-						11:58
-					</view>
+					<view class="card-body-date"> 11:58 </view>
 				</view>
 				<!-- 				<view class="card-body">
 					<view class="card-body-top">
@@ -79,44 +75,47 @@
 			</uni-card>
 		</view>
 		<view class="add">
-			<uni-icons type="compose" size="30" color="#007fff"></uni-icons>
+			<uni-icons type="compose" size="30" color="#007fff" @click="showPopAdd()"></uni-icons>
 		</view>
 		<w-picker ref="date" :visible.sync="visible" mode="date" startYear="2017" endYear="2099" :value="single"
-			fields="month" @confirm="onConfirm($event,'date')" @cancel="onCancel" :disabled-after="false">
+			fields="month" @confirm="onConfirm($event, 'date')" @cancel="onCancel" :disabled-after="false">
 		</w-picker>
-		<PopType ref='Pop' :show.sync='PopShow'  @onSelect='onSelect'></PopType>
+		<pop-type ref="Pop" :show.sync="PopShow" @onSelect="onSelect"></pop-type>
+		<pop-add :show.sync="PopAddShow"></pop-add>
 	</view>
 </template>
 <script>
 	import wPicker from "../../../components/w-picker/w-picker.vue";
-	import PopType from '../../../components/PopType.vue'
+	import PopType from "../../../components/PopType.vue";
+	import PopAdd from "../../../components/PopAdd.vue";
 	export default {
 		components: {
 			wPicker,
-			PopType
+			PopType,
+			PopAdd,
 		},
 		data() {
 			return {
 				single: "2022-03",
 				visible: false,
 				bills: [],
-				PopShow:false
-			}
+				PopShow: false, //显示选择类型
+				PopAddShow: false, //显示添加账单
+			};
 		},
 		onLoad() {
-			this.getBillList()
+			this.getBillList();
 		},
 		onReady() {},
 		methods: {
 			onConfirm(e) {
 				this.single = e.value;
-				console.log("-change事件:", e);
 			},
 			onCancel() {
-				this.visible = false
+				this.visible = false;
 			},
 			getTime() {
-				this.visible = true
+				this.visible = true;
 				// this.$refs.date.show()
 			},
 			getBillList() {
@@ -127,24 +126,28 @@
 						// page: 1,
 						// page_size: 5,
 					},
-					success: (
-						res
-					) => {
-						this.bills = res.result
-					}
+					success: (res) => {
+						this.bills = res.result;
+					},
 				});
 			},
-			togglePopShow(){
-				this.PopShow=true
+			togglePopShow() {
+				this.PopShow = true;
 			},
-			onSelect(item){
+			showPopAdd() {
+				this.PopAddShow = true;
+			},
+			onSelect(item) {
 				console.log(item);
-			}
-		}
-	}
+			},
+		},
+	};
 </script>
 
 <style scoped lang="scss">
+	* {
+		box-sizing: border-box;
+	}
 	.uni-container {
 		height: 100%;
 		display: flex;
@@ -152,7 +155,6 @@
 		padding-top: 160rpx;
 		width: 100%;
 		box-sizing: border-box;
-
 		.header {
 			box-sizing: border-box;
 			position: fixed;
@@ -170,7 +172,7 @@
 			padding: 20rpx;
 
 			.dataWrap {
-				font-size: $uni-font-size-sm*2;
+				font-size: $uni-font-size-sm * 2;
 
 				.expense,
 				.income {
@@ -321,7 +323,7 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			border: 1PX solid #e9e9e9;
+			border: 1px solid #e9e9e9;
 			color: #007fff;
 		}
 	}
